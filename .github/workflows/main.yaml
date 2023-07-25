@@ -41,7 +41,7 @@ jobs:
           fi
         shell: bash          
       - name: Permission Revoking
-        if: github.event.inputs.operation == 'ADD'
+        if: github.event.inputs.operation == 'DELETE'
         env:
           SUPER_SECRET: ${{ secrets.MY_TOKEN }}
           list: ${{ inputs.repo_list }}
