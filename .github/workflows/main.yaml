@@ -15,7 +15,6 @@ jobs:
     steps:
 
       - name: Permission Changing
-      - shell: bash
         env:
           SUPER_SECRET: ${{ secrets.MY_TOKEN }}
         run: |
