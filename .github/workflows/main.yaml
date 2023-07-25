@@ -35,8 +35,7 @@ jobs:
             repo_id=$(curl -s  -L   -H "Accept: application/vnd.github+json"   -H "Authorization: Bearer ${{ secrets.MY_TOKEN }}"  -H "X-GitHub-Api-Version: 2022-11-28" -H "per_page: 100"  https://api.github.com/orgs/bhsankbab/repos | jq '.[] | select(.name=="'$p'") | .id')
             echo $repo_id
             echo $operation
-            echo ${{ github.events.inputs.operation }}
-            curl -L -X $operation -H "Accept: application/vnd.github+json"   -H "Authorization: Bearer ${{ secrets.MY_TOKEN }}"  -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/orgs/bhsankbab/actions/permissions/repositories/"$repo_id"
+            curl -L -X '$operation' -H "Accept: application/vnd.github+json"   -H "Authorization: Bearer ${{ secrets.MY_TOKEN }}"  -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/orgs/bhsankbab/actions/permissions/repositories/"$repo_id"
             done
           else
             echo " ORG settings for Action Permission is not Seletected for Repositories. Please change it and run the workflow"
