@@ -13,10 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
+
+      - name: Permission Changing
       - shell: bash
         env:
           SUPER_SECRET: ${{ secrets.MY_TOKEN }}
-      - name: Permission Changing
         run: |
           IFS=',' read -r -a repo <<< "${{ inputs.repo_list }}"
           for p in "${repo[@]}"; do
