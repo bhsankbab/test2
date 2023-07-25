@@ -21,7 +21,6 @@ jobs:
     timeout-minutes: 40
     steps:
       - name: Permission Adding
-        if: github.event.inputs.operation == 'ADD'
         env:
           SUPER_SECRET: ${{ secrets.MY_TOKEN }}
           list: ${{ inputs.repo_list }}
@@ -34,30 +33,9 @@ jobs:
             echo "executing $p"
             repo_id=$(curl -s  -L   -H "Accept: application/vnd.github+json"   -H "Authorization: Bearer ${{ secrets.MY_TOKEN }}"  -H "X-GitHub-Api-Version: 2022-11-28" -H "per_page: 100"  https://api.github.com/orgs/bhsankbab/repos | jq '.[] | select(.name=="'$p'") | .id')
             echo $repo_id
-            curl -L -X PUT  -H "Accept: application/vnd.github+json"   -H "Authorization: Bearer ${{ secrets.MY_TOKEN }}"  -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/orgs/bhsankbab/actions/permissions/repositories/"$repo_id"
+            curl -L -X ${{ github.event.inputs.operation }}  -H "Accept: application/vnd.github+json"   -H "Authorization: Bearer ${{ secrets.MY_TOKEN }}"  -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/orgs/bhsankbab/actions/permissions/repositories/"$repo_id"
             done
           else
             echo " ORG settings for Action Permission is not Seletected for Repositories. Please change it and run the workflow"
           fi
-        shell: bash          
-      - name: Permission Revoking
-        if: github.event.inputs.operation == 'DELETE'
-        env:
-          SUPER_SECRET: ${{ secrets.MY_TOKEN }}
-          list: ${{ inputs.repo_list }}
-        run: |
-          status_check=$(curl -s -L   -H "Accept: application/vnd.github+json"   -H "Authorization: Bearer ${{ secrets.MY_TOKEN }}"  -H "X-GitHub-Api-Version: 2022-11-28"  https://api.github.com/orgs/bhsankbab/actions/permissions | jq -r '.enabled_repositories')
-          echo "$status_check"   
-          if [ "$status_check" == "selected" ]; then
-            IFS=',' read -r -a repo <<< "${{ inputs.repo_list }}"
-            for p in "${repo[@]}"; do
-            echo "executing $p"
-            repo_id=$(curl -s  -L   -H "Accept: application/vnd.github+json"   -H "Authorization: Bearer ${{ secrets.MY_TOKEN }}"  -H "X-GitHub-Api-Version: 2022-11-28" -H "per_page: 100"  https://api.github.com/orgs/bhsankbab/repos | jq '.[] | select(.name=="'$p'") | .id')
-            echo $repo_id
-            curl -L -X DELETE  -H "Accept: application/vnd.github+json"   -H "Authorization: Bearer ${{ secrets.MY_TOKEN }}"  -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/orgs/bhsankbab/actions/permissions/repositories/"$repo_id"
-            done
-          else
-            echo " ORG settings for Action Permission is not Seletected for Repositories. Please change it and run the workflow"
-          fi
-        shell: bash  
-
+        shell: bash 
