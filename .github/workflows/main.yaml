@@ -33,7 +33,7 @@ jobs:
             done         
             printf -v joined '%s,' "${idr[@]}"
             echo "${joined%,}"
-            echo "'$current_perm','${joined%,}'"
+            echo "$current_perm,${joined%,}"
             value=$(echo "'$current_perm','${joined%,}'")
             
             curl -L -X PUT  -H "Accept: application/vnd.github+json"   -H "Authorization: Bearer $SUPER_SECRET"  -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/orgs/bhsankbab/actions/permissions/repositories -d '{"selected_repository_ids":['$current_perm','${joined%,}']}'
