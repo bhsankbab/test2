@@ -35,7 +35,7 @@ jobs:
         run: |
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ steps.my-script.outputs.result }}"
-      - name: WorkFlow Permission Adding
+      - name: WorkFlow Permission Deleting
         env:
           SUPER_SECRET: ${{ secrets.MY_TOKEN }}
           list: ${{ inputs.repo_list }}
@@ -54,7 +54,7 @@ jobs:
             echo $p
             sed -i '/'$p'/d' org-repos/repolist.txt
             done
-            cat org-reposrepolist.txt
+            cat org-repos/repolist.txt
             COMMIT_MESG=$(git log -1 --pretty=format:%s | head -n 1)
             GIT_RETRY=0
             until [ "$GIT_RETRY" -ge 10 ]
