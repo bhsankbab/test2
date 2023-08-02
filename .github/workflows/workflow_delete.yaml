@@ -52,7 +52,7 @@ jobs:
             IFS=',' read -r -a repo <<< "${{ inputs.repo_list }}"
             for p in "${repo[@]}"; do
             echo $p
-            sed -i 's/'$p'//g' repolist.txt
+            sed -i '/'$p'/d' repolist.txt
             done
             cat repolist.txt
             COMMIT_MESG=$(git log -1 --pretty=format:%s | head -n 1)
