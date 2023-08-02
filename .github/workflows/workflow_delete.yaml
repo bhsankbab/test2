@@ -1,4 +1,4 @@
-name: Github Workflow Permission Manager
+name: Github Workflow Permission Delete
 run-name: GitHUB pErm
 on:
   workflow_dispatch:
