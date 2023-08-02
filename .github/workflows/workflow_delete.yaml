@@ -38,6 +38,7 @@ jobs:
             for p in "${repo[@]}"; do
             sed -i 's/$p//g' repolist.txt
             done
+            cat repolist.txt
           else
             echo " ORG settings for Action Permission is not Seletected for Repositories. Please change it and run the workflow"
           fi
