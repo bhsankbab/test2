@@ -22,7 +22,6 @@ jobs:
             repolist.txt
           sparse-checkout-cone-mode: false
       - name: Adding Secret Permission for Repo
-        if: github.event.inputs.operation == 'ADD'
         env:
           SUPER_SECRET: ${{ secrets.MY_TOKEN }}
           list: ${{ inputs.repo_list }}
