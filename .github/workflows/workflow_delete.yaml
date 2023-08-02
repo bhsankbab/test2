@@ -34,9 +34,9 @@ jobs:
             curl -s -L -X DELETE  -H "Accept: application/vnd.github+json"   -H "Authorization: Bearer ${{ secrets.MY_TOKEN }}"  -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/orgs/$org/actions/permissions/repositories/"$repo_id"
             echo "${{ inputs.action-on }} -  Operation ${{ inputs.operation }} is done for Repository $p"
             done
-            for p in $(cat repolist.txt); do
-            repo_id=$(curl -s  -L   -H "Accept: application/vnd.github+json"   -H "Authorization: Bearer ${{ secrets.MY_TOKEN }}"  -H "X-GitHub-Api-Version: 2022-11-28" -H "per_page: 100"  https://api.github.com/orgs/$org/repos | jq '.[] | select(.name=="'$p'") | .id')
-            curl -s -L -X PUT  -H "Accept: application/vnd.github+json"   -H "Authorization: Bearer ${{ secrets.MY_TOKEN }}"  -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/orgs/$org/actions/permissions/repositories/"$repo_id"
+            IFS=',' read -r -a repo <<< "${{ inputs.repo_list }}"
+            for p in "${repo[@]}"; do
+            sed -i 's/$p//g' repolist.txt
             done
           else
             echo " ORG settings for Action Permission is not Seletected for Repositories. Please change it and run the workflow"
