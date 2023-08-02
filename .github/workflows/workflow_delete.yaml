@@ -37,7 +37,7 @@ jobs:
             IFS=',' read -r -a repo <<< "${{ inputs.repo_list }}"
             for p in "${repo[@]}"; do
             echo $p
-            sed -i 's/$p//g' repolist.txt
+            sed -i 's/'$p'//g' repolist.txt
             done
             cat repolist.txt
           else
