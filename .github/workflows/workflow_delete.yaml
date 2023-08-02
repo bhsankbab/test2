@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           sparse-checkout: |
-            repolist.txt
+            org-repos
           sparse-checkout-cone-mode: false
       - name: Get noreply email address of actor
         uses: actions/github-script@v6.4.1
@@ -52,15 +52,15 @@ jobs:
             IFS=',' read -r -a repo <<< "${{ inputs.repo_list }}"
             for p in "${repo[@]}"; do
             echo $p
-            sed -i '/'$p'/d' repolist.txt
+            sed -i '/'$p'/d' org-repos/repolist.txt
             done
-            cat repolist.txt
+            cat org-reposrepolist.txt
             COMMIT_MESG=$(git log -1 --pretty=format:%s | head -n 1)
             GIT_RETRY=0
             until [ "$GIT_RETRY" -ge 10 ]
             do
-            git add repolist.txt
-            git diff --quiet && git diff --staged --quiet || git commit repolist.txt -m "$COMMIT_MESG [SKIP CI]"
+            git add org-repos/repolist.txt
+            git diff --quiet && git diff --staged --quiet || git commit org-repos/repolist.txt -m "$COMMIT_MESG [SKIP CI]"
             git config pull.rebase false  # merge (the default strategy)
             git push  && break  # substitute your command here
             GIT_RETRY=$((GIT_RETRY+1))
