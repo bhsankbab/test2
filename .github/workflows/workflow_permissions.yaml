@@ -8,10 +8,8 @@ jobs:
   workflow-permissions:
     runs-on: ubuntu-latest
     timeout-minutes: 40
-    if: github.event.inputs.action-on == 'WORKFLOW'
     steps:
       - name: WorkFlow Permission Adding
-        if: github.event.inputs.operation == 'ADD'
         env:
           SUPER_SECRET: ${{ secrets.MY_TOKEN }}
           list: ${{ inputs.repo_list }}
