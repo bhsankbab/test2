@@ -2,6 +2,7 @@ name: Github Workflow Permission Delete
 run-name: GitHUB pErm
 on:
   workflow_dispatch:
+    inputs:
       repo_list:
         required: true
         type: string
