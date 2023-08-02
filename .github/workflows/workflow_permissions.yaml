@@ -9,6 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
+      - uses: actions/checkout@v3
+        with:
+          sparse-checkout: |
+            repolist.txt
+          sparse-checkout-cone-mode: false
       - name: WorkFlow Permission Adding
         env:
           SUPER_SECRET: ${{ secrets.MY_TOKEN }}
