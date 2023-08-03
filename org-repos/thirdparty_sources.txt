@@ -26,4 +26,4 @@
 "snok/container-retention-policy@v1.5.0",
 "snok/container-retention-policy@v2.0.0",
 "stefanzweifel/git-auto-commit-action@v4",
-"unfor19/install-aws-cli-action@v1",
+"unfor19/install-aws-cli-action@v1"
