@@ -46,7 +46,7 @@ jobs:
             if [ "$status" = "false" ]; then
             cat org-repos/ids.txt
             echo "*****"
-            sed -i -e '/$p/d' org-repos/ids.txt
+            sed -i -e '/'$p'/d' org-repos/ids.txt
             cat org-repos/ids.txt
             else
             echo " Repo $p is Archived"
