@@ -1,5 +1,5 @@
-name: Github Workflow Permission Manager
-run-name: GitHUB pErm
+name: Github Workflow Permission Manager New
+run-name: New Permission Manager
 on:
   workflow_dispatch:
     inputs:
