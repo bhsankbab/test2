@@ -59,18 +59,18 @@ jobs:
             echo " Permission is added "
             COMMIT_MESG=$(git log -1 --pretty=format:%s | head -n 1)
             GIT_RETRY=0
-            until [ "$GIT_RETRY" -ge 10 ]
-            do
-            git add org-repos
-            git diff --quiet && git diff --staged --quiet || git commit org-repos -m "$COMMIT_MESG [SKIP CI]"
-            git config pull.rebase false  # merge (the default strategy)
-            git push  && break  # substitute your command here
-            GIT_RETRY=$((GIT_RETRY+1))
-            RANDOM_WAIT_TIMER=$((1 + $RANDOM % 10))
-            sleep $RANDOM_WAIT_TIMER
-            git pull
-            echo "RETRY COUNT: $GIT_RETRY"
-            done
+              until [ "$GIT_RETRY" -ge 10 ]
+              do
+              git add org-repos
+              git diff --quiet && git diff --staged --quiet || git commit org-repos -m "$COMMIT_MESG [SKIP CI]"
+              git config pull.rebase false  # merge (the default strategy)
+              git push  && break  # substitute your command here
+              GIT_RETRY=$((GIT_RETRY+1))
+              RANDOM_WAIT_TIMER=$((1 + $RANDOM % 10))
+              sleep $RANDOM_WAIT_TIMER
+              git pull
+              echo "RETRY COUNT: $GIT_RETRY"
+              done
             else
             echo " Repo $p is Archived or already exists"
             fi
