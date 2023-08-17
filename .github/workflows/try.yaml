@@ -1,0 +1,24 @@
+name: try grep
+run-name: try grep
+on:
+  workflow_dispatch:
+    inputs:
+      repos:
+        required: true
+        type: string
+        description: Specify Repo Names to be added. If more than one, use comma separated values
+        default: "-"
+
+env:
+  org: bhsankbab
+jobs:
+  secret-permissions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Check
+        run: |
+          echo "babu" >> babu.txt
+          grep babu babu.txt
+          
+        shell: bash
